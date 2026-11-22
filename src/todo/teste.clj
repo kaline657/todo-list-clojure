@@ -5,7 +5,9 @@
 (defn -main [& args]
   (db/inicializar-banco)
 
-  (println "\nTarefas cadastradas:")
+  (println "\nAlterando o status da tarefa de ID 1...")
+  (db/alternar-conclusao 1)
 
+  (println "\nTarefas apos a alteracao:")
   (doseq [tarefa (db/listar-tarefas)]
     (println tarefa)))

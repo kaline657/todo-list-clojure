@@ -48,3 +48,29 @@
                  :titulo (.getString rs "titulo")
                  :concluida (= 1 (.getInt rs "concluida"))}))
         tarefas))))
+
+;; UPDATE - Editar o titulo de uma tarefa
+(defn editar-tarefa [id novo-titulo]
+  (with-open [conn (conectar)
+              stmt (.prepareStatement conn
+                     "UPDATE tarefas SET titulo = ? WHERE id = ?")]
+    (.setString stmt 1 novo-titulo)
+    (.setInt stmt 2 id)
+    (if (pos? (.executeUpdate stmt))
+      (println "Tarefa atualizada com sucesso!")
+      (println "Tarefa nao encontrada!"))))
+
+;; UPDATE/TOGGLE - Alternar o status da tarefa
+(defn alternar-conclusao [id]
+  (with-open [conn (conectar)
+              stmt (.prepareStatement conn
+                     "UPDATE tarefas
+                      SET concluida = CASE
+                        WHEN concluida = 0 THEN 1
+                        ELSE 0
+                      END
+                      WHERE id = ?")]
+    (.setInt stmt 1 id)
+    (if (pos? (.executeUpdate stmt))
+      (println "Status da tarefa alterado com sucesso!")
+      (println "Tarefa nao encontrada!"))))
