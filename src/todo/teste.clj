@@ -5,9 +5,13 @@
 (defn -main [& args]
   (db/inicializar-banco)
 
-  (println "\nAlterando o status da tarefa de ID 1...")
-  (db/alternar-conclusao 1)
+  (println "\nTarefas antes da exclusao:")
+  (doseq [tarefa (db/listar-tarefas)]
+    (println tarefa))
 
-  (println "\nTarefas apos a alteracao:")
+  (println "\nExcluindo a tarefa de ID 3...")
+  (db/excluir-tarefa 3)
+
+  (println "\nTarefas depois da exclusao:")
   (doseq [tarefa (db/listar-tarefas)]
     (println tarefa)))

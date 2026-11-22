@@ -74,3 +74,13 @@
     (if (pos? (.executeUpdate stmt))
       (println "Status da tarefa alterado com sucesso!")
       (println "Tarefa nao encontrada!"))))
+
+;; DELETE - Excluir uma tarefa pelo ID
+(defn excluir-tarefa [id]
+  (with-open [conn (conectar)
+              stmt (.prepareStatement conn
+                     "DELETE FROM tarefas WHERE id = ?")]
+    (.setInt stmt 1 id)
+    (if (pos? (.executeUpdate stmt))
+      (println "Tarefa excluida com sucesso!")
+      (println "Tarefa nao encontrada!"))))
