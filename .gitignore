@@ -1,0 +1,12 @@
+
+.cpcache/
+.lsp/
+.calva/
+.clj-kondo/
+target/
+*.class
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+.env
